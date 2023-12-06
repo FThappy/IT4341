@@ -8,8 +8,9 @@ import SchoolIcon from "@mui/icons-material/School";
 import BusinessIcon from "@mui/icons-material/Business";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import SportsScoreIcon from "@mui/icons-material/SportsScore";
 const Container = styled.div`
-  height: 25rem;
+  height: 28rem;
   width: 87rem;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   border-radius: 2%;
@@ -56,9 +57,8 @@ color: #2467BF;
 
 
 
-const Item = ({job}) => {
+const Item = ({job,score}) => {
 
-    console.log(job)
     return (
       <Container>
         <Img src="https://play-lh.googleusercontent.com/bJcGJX4Tv-xmeMbomvRC5A-Zcp3zW2bJ3KmWVHk1hSnIhCETcQlgwzTG0lpM8PrW4Ac" />
@@ -67,31 +67,27 @@ const Item = ({job}) => {
             <ShowInfoIcon>
               <GradeIcon />
             </ShowInfoIcon>
-            <ShowInfoTitle>
-              Title : {job.title}
-            </ShowInfoTitle>
+            <ShowInfoTitle>Title : {job.title}</ShowInfoTitle>
           </ShowInfo>
           <ShowInfo>
             <ShowInfoIcon>
               <LocalAtmIcon />
             </ShowInfoIcon>
-            <ShowInfoTitle>Salary : {job.salary ? job.salary : "Chưa có thông tin"}</ShowInfoTitle>
+            <ShowInfoTitle>
+              Salary : {job.salary ? job.salary : "Chưa có thông tin"}
+            </ShowInfoTitle>
           </ShowInfo>
           <ShowInfo>
             <ShowInfoIcon>
               <FmdGoodIcon />
             </ShowInfoIcon>
-            <ShowInfoTitle>
-              Address : {job.address}
-            </ShowInfoTitle>
+            <ShowInfoTitle>Address : {job.address}</ShowInfoTitle>
           </ShowInfo>
           <ShowInfo>
             <ShowInfoIcon>
               <SchoolIcon />
             </ShowInfoIcon>
-            <ShowInfoTitle>
-              Bằng cấp : {job.experience}
-            </ShowInfoTitle>
+            <ShowInfoTitle>Bằng cấp : {job.experience}</ShowInfoTitle>
           </ShowInfo>
           <ShowInfo>
             <ShowInfoIcon>
@@ -115,14 +111,16 @@ const Item = ({job}) => {
             <ShowInfoIcon>
               <ManageAccountsIcon />
             </ShowInfoIcon>
-            <ShowInfoTitle>
-              Làm Về : {job.major}
-            </ShowInfoTitle>
+            <ShowInfoTitle>Làm Về : {job.major}</ShowInfoTitle>
           </ShowInfo>
           <ShowInfo>
-            <ShowInfoLink href={job.detailURL}>
-              Link Job Here.
-            </ShowInfoLink>
+            <ShowInfoIcon>
+              <SportsScoreIcon />
+            </ShowInfoIcon>
+            <ShowInfoTitle>Score : {job.score}</ShowInfoTitle>
+          </ShowInfo>
+          <ShowInfo>
+            <ShowInfoLink href={job.detailURL}>Link Job Here.</ShowInfoLink>
           </ShowInfo>
         </Show>
       </Container>
