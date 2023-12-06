@@ -4,6 +4,7 @@ import axios from "axios";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import Item from "./Item";
+import DetailScore from "./DetailScore";
 
 const Info = styled.div`
   display: grid;
@@ -93,7 +94,7 @@ const Main = () => {
       return { ...prev, [e.target.name]: e.target.value };
     });
   };
-  console.log(inputs)
+  console.log(inputs);
   const currentDate = new Date();
   const currentDateTimeString = currentDate.toLocaleString(); // Lấy ngày và giờ dưới dạng chuỗi
 
@@ -130,22 +131,22 @@ const Main = () => {
       }
     };
     getCity();
-  },[]);
+  }, []);
 
   const getJobs = async () => {
     try {
       const information = {
-        title : inputs.title,
-        address : inputs.address,
-        salary : inputs.salary,
-        experience : inputs.experience,
-        level : inputs.level,
+        title: inputs.title,
+        address: inputs.address,
+        salary: inputs.salary,
+        experience: inputs.experience,
+        level: inputs.level,
         refreshedTime: currentDateTimeString,
       };
       console.log(information);
       setIsLoading(true);
       const res = await axios.post(
-        "http://localhost:5000/suggest-job",
+        "https://api-vx.onrender.com/suggest-job",
         information,
         {
           params: { TvA: inputs.TvA, TvS: inputs.TvS, SvA: inputs.SvA },
@@ -241,6 +242,9 @@ const Main = () => {
               <OptionField value={0}>
                 Hãy chọn độ quan trọng Ngành so với lương
               </OptionField>
+              <OptionField value={0.11}>không đáng kể</OptionField>
+              <OptionField value={0.15}>đáng kể</OptionField>
+              <OptionField value={0.25}>kém quan trọng hơn</OptionField>
               <OptionField value={1}>Tương đương</OptionField>
               <OptionField value={4}>Quan trọng hơn</OptionField>
               <OptionField value={7}>Quan trọng hơn nhiều</OptionField>
@@ -270,6 +274,9 @@ const Main = () => {
               <OptionField value={0}>
                 Hãy chọn độ quan trọng Ngành so với Địa điểm công ty
               </OptionField>
+              <OptionField value={0.11}>không đáng kể</OptionField>
+              <OptionField value={0.15}>đáng kể</OptionField>
+              <OptionField value={0.25}>kém quan trọng hơn</OptionField>
               <OptionField value={1}>Tương đương</OptionField>
               <OptionField value={4}>Quan trọng hơn</OptionField>
               <OptionField value={7}>Quan trọng hơn nhiều</OptionField>
@@ -283,6 +290,9 @@ const Main = () => {
               <OptionField value={0}>
                 Hãy chọn độ quan trọng Tiền lương so với Địa điểm công ty
               </OptionField>
+              <OptionField value={0.11}>không đáng kể</OptionField>
+              <OptionField value={0.15}>đáng kể</OptionField>
+              <OptionField value={0.25}>kém quan trọng hơn</OptionField>
               <OptionField value={1}>Tương đương</OptionField>
               <OptionField value={4}>Quan trọng hơn</OptionField>
               <OptionField value={7}>Quan trọng hơn nhiều</OptionField>
@@ -297,7 +307,16 @@ const Main = () => {
           <Suggest>
             <Title>Suitable jobs for you :</Title>
             <SuggestInfo>
-                <Item job={data[1]} score={data[0]} key={data[0].id} />
+              <Item job={data} score={data} key={data.id} />
+            </SuggestInfo>
+          </Suggest>
+        )}
+
+        {isFetch && (
+          <Suggest>
+            <Title>job score</Title>
+            <SuggestInfo>
+              <DetailScore job={data} score={data} key={data.id} />
             </SuggestInfo>
           </Suggest>
         )}
