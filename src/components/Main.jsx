@@ -80,6 +80,14 @@ const SuggestInfo = styled.div`
   margin-right: 4rem;
   margin-bottom: 2rem;
 `;
+const ButtonScore = styled.button`
+  color: white;
+  background: teal;
+  height: 3rem;
+  font-size: 1.1rem;
+  width: 10rem;
+  margin-right: 4rem;
+`;
 const Container = styled.div``;
 
 const Main = () => {
@@ -88,13 +96,20 @@ const Main = () => {
   const [data, setData] = useState([]);
   const [inputs, setInputs] = useState({});
   const [city, setCity] = useState([]);
+  const [hide,setHide] = useState(false)
+
+  const handleClick = (e)=>{
+    e.preventDefault()
+    setHide(()=>!hide)
+  }
+
 
   const handleChange = (e) => {
     setInputs((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
     });
   };
-  console.log(inputs);
+
   const currentDate = new Date();
   const currentDateTimeString = currentDate.toLocaleString(); // Lấy ngày và giờ dưới dạng chuỗi
 
@@ -143,7 +158,7 @@ const Main = () => {
         level: inputs.level,
         refreshedTime: currentDateTimeString,
       };
-      console.log(information);
+
       setIsLoading(true);
       const res = await axios.post(
         "https://api-vx.onrender.com/suggest-job",
@@ -158,13 +173,13 @@ const Main = () => {
         }
       );
 
-      console.log(res.data);
+
       setIsLoading(false);
       setData(res.data);
       setIsFetch(true);
     } catch (e) {
       setIsLoading(false);
-      console.log(e);
+
     }
   };
 
@@ -304,15 +319,17 @@ const Main = () => {
           <ButtonField onClick={handleSubmit}>Submit</ButtonField>
         </Info>
         {isFetch && (
-          <Suggest>
-            <Title>Suitable jobs for you :</Title>
-            <SuggestInfo>
-              <Item job={data} score={data} key={data.id} />
-            </SuggestInfo>
-          </Suggest>
+          <>
+            <Suggest>
+              <Title>Suitable jobs for you :</Title>
+              <SuggestInfo>
+                <Item job={data} key={data.id} />
+              </SuggestInfo>
+              <ButtonScore onClick={handleClick}>Score</ButtonScore>
+            </Suggest>
+          </>
         )}
-
-        {isFetch && (
+        {hide && (
           <Suggest>
             <Title>job score</Title>
             <SuggestInfo>

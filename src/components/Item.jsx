@@ -57,7 +57,7 @@ color: #2467BF;
 
 
 
-const Item = ({job,score}) => {
+const Item = ({job}) => {
 
     return (
       <Container>
