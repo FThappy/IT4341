@@ -216,15 +216,12 @@ const Main = () => {
                 <OptionField
                   key={city.id}
                   value={
-                    city.name.split(" ")[city.name.split(" ").length - 3] +
-                    " " +
                     city.name.split(" ")[city.name.split(" ").length - 2] +
                     " " +
                     city.name.split(" ")[city.name.split(" ").length - 1]
                   }
                 >
-                  {city.name.split(" ")[city.name.split(" ").length - 3] +
-                    " " +
+                  {
                     city.name.split(" ")[city.name.split(" ").length - 2] +
                     " " +
                     city.name.split(" ")[city.name.split(" ").length - 1]}
